@@ -1,0 +1,2 @@
+- Añadir puertos en los servicios.
+- Modularizar lo mas posible en los DockerFiles.

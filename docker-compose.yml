@@ -1,0 +1,39 @@
+version: '3'
+services: 
+    registers-service:
+        build: ./microServices/registers/service
+        networks:
+            - registers-network
+    registers-db:
+        build: ./microServices/registers/db
+        volumes:
+            - ./microServices/registers/db/data:/data/db
+        networks:
+            - registers-network
+    attendances-service:
+        build: ./microServices/attendances/service    
+        networks:
+            - attendances-network
+    attendances-db:
+        build: ./microServices/attendances/db
+        volumes: 
+            - ./microServices/attendances/db/data:/data/db
+        networks:
+            - attendances-network
+    teachers-service:
+        build: ./microServices/teachers/service
+        networks:
+            - teachers-network
+    teachers-db:
+        build: ./microServices/teachers/service
+        volumes: 
+            - ./microServices/teachers/db/data:/data/db
+        networks:
+            - teachers-network
+    wrapper:
+        build: ./wrapper/
+
+networks:
+  registers-network:
+  attendances-network:
+  teachers-network:

@@ -12,6 +12,18 @@ services:
             - ./microServices/registers/db/data:/data/db
         networks:
             - registers-network
+    teachers-service:
+        build: ./microServices/teachers/service
+        networks:
+            - teachers-network
+        tty: true
+        stdin_open: true
+    teachers-db:
+        build: ./microServices/teachers/db
+        volumes: 
+            - ./microServices/teachers/db/data:/data/db
+        networks:
+            - teachers-network
     attendances-service:
         build: ./microServices/attendances/service    
         networks:
@@ -24,18 +36,6 @@ services:
             - ./microServices/attendances/db/data:/data/db
         networks:
             - attendances-network
-    teachers-service:
-        build: ./microServices/teachers/service
-        tty: true
-        stdin_open: true
-        networks:
-            - teachers-network
-    teachers-db:
-        build: ./microServices/teachers/db
-        volumes: 
-            - ./microServices/teachers/db/data:/data/db
-        networks:
-            - teachers-network
     wrapper:
         build: ./wrapper
         tty: true

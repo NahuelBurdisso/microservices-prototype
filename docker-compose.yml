@@ -1,21 +1,17 @@
 version: '3'
 services: 
-    registers-service:
-        build: ./microServices/registers/service
-        networks:
-            - registers-network
-        tty: true
-        stdin_open: true
     registers-db:
         build: ./microServices/registers/db
         volumes:
             - ./microServices/registers/db/data:/data/db
         networks:
             - registers-network
-    teachers-service:
-        build: ./microServices/teachers/service
+    registers-service:
+        build: ./microServices/registers/service
+        depends_on:
+            - registers-db
         networks:
-            - teachers-network
+            - registers-network
         tty: true
         stdin_open: true
     teachers-db:
@@ -24,10 +20,12 @@ services:
             - ./microServices/teachers/db/data:/data/db
         networks:
             - teachers-network
-    attendances-service:
-        build: ./microServices/attendances/service    
+    teachers-service:
+        build: ./microServices/teachers/service
+        depends_on:
+            - teachers-db
         networks:
-            - attendances-network
+            - teachers-network
         tty: true
         stdin_open: true
     attendances-db:
@@ -36,8 +34,20 @@ services:
             - ./microServices/attendances/db/data:/data/db
         networks:
             - attendances-network
+    attendances-service:
+        build: ./microServices/attendances/service    
+        depends_on:
+            - attendances-db
+        networks:
+            - attendances-network
+        tty: true
+        stdin_open: true
     wrapper:
         build: ./wrapper
+        depends_on:
+            - registers-service
+            - teachers-service
+            - attendances-service
         tty: true
         stdin_open: true
 

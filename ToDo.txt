@@ -1,2 +1,7 @@
-- Añadir puertos en los servicios.
-- Modularizar lo mas posible en los DockerFiles.
+- En cada microservicio agregar seneca, plugin de mongo de seneca.
+- Testear comunicacion de seneca (ms) con la base de datos.
+- Exponer en seneca dos funcionalidades que permitan:
+    * Listar lo que hay en la base de datos
+    * Hacer un insert
+
+- Como hacer para invocar cada funcionalidad de los ms seneca, desde el wrapper.

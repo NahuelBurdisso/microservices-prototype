@@ -1,10 +1,15 @@
-const { connectToMongoDb } = require('./utils/mongoDb');
+const { connectToMongoDb, createCollection, insertManyDocumentsInCollection } = require('./utils/mongoDb');
 const { connectionUrl, dbName } = require('./constants');
+
+// Documents
+const { registers } = require('./utils/dbDocuments');
 
 connectToMongoDb(connectionUrl, dbName)
   .then(db => {
-    // do stuff here
+    createCollection(db, 'registers');
+    insertManyDocumentsInCollection(db, 'registers', registers);
+    db.close();
   })
   .catch(error => {
     console.log(error);
-  })
+  });

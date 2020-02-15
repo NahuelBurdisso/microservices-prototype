@@ -1,6 +1,9 @@
 # Run Docker compose
 docker-compose up --build
 
+# List running containers with format
+docker ps --format "{{.ID}}: {{.Names}}"
+
 # Stop all Docker container
 docker stop $(docker ps -a -q)
 
